@@ -15,10 +15,10 @@ class DataFromSqflite {
     return database;
   }
 
-  Future<List<Map<String, Object?>>> retrieverAll() async {
+  Future<List<Todo>> retrieveAll() async {
     final database = await getDatabase();
-    print("Meu retrieve: ${await database.query('TODO')}");
-    return await database.query('TODO');
+    final data = await database.query('TODO');
+    return data.map((map) => Todo.fromMap(map)).toList();
   }
 
   Future deleteTuple(int userId) async {
@@ -34,6 +34,5 @@ class DataFromSqflite {
   Future insertData(Todo todo) async {
     final database = await getDatabase();
     await database.insert('TODO', todo.toMap());
-    print("Meu insert: ${await database.insert('TODO', todo.toMap())}");
   }
 }

@@ -41,7 +41,7 @@ class Todo {
       id: map['id'] as int,
       todo: map['todo'] as String,
       description: map['description'] as String,
-      isDone: map['isDone'] as bool,
+      isDone: map['isDone'] as int == 0 ? false : true,
     );
   }
 

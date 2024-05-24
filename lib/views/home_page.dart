@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:todo_application/bloc/todo_bloc.dart';
+import 'package:todo_application/data/data_from_sqflite.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,20 +12,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final todoBloc = TodoBloc();
+  late final TodoBloc todoBloc;
 
   @override
   void initState() {
     super.initState();
+    todoBloc = TodoBloc(GetIt.instance.get<DataFromSqflite>());
+    todoBloc.add(TodoRetrieveAllEvent());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('teste'),
+        centerTitle: true,
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           BlocBuilder<TodoBloc, TodoState>(
+            bloc: todoBloc,
             builder: (context, state) {
               if (state is TodoLoadingState) {
                 return const CircularProgressIndicator();
@@ -42,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                 );
               }
 
-              if(state is TodoErrorState) {
+              if (state is TodoErrorState) {
                 return Text(state.message);
               }
 
@@ -51,9 +61,11 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        todoBloc.add(TodoRetrieveAllEvent());
-      },),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          todoBloc.add(TodoRetrieveAllEvent());
+        },
+      ),
     );
   }
 }
