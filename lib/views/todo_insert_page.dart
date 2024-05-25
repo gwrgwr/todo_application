@@ -20,7 +20,7 @@ class InsertPage extends StatelessWidget {
           TextField(
             controller: todoTextController,
             decoration: InputDecoration(
-              fillColor: Color(0xff355486),
+              fillColor: const Color(0xff355486),
               filled: true,
               hintText: "Task name",
               hintStyle: const TextStyle(
@@ -39,14 +39,14 @@ class InsertPage extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           TextField(
             controller: descriptionController,
             decoration: InputDecoration(
-              fillColor: Color(0xff6A3586),
+              fillColor: const Color(0xff6A3586),
               filled: true,
               hintText: "Task name",
-              hintStyle: TextStyle(
+              hintStyle: const TextStyle(
                 color: Colors.white,
               ),
               enabledBorder: OutlineInputBorder(
@@ -62,7 +62,7 @@ class InsertPage extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           TextButton(
               onPressed: () {
                 todoBloc.add(

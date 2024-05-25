@@ -10,8 +10,8 @@ import 'injections/injector.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  getInjections();
   runApp(const MyApp());
+  getInjections();
   // final database = DataFromSqflite().deleteAllFromTable();
   // final database = DataFromSqflite().deleteTable();
 }

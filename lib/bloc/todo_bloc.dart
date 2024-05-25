@@ -17,24 +17,18 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     });
 
     on<TodoUpdateEvent>((event, emit) async {
-      final retrieve = await _dataFromSqflite.retrieveAll();
-      final update = await _dataFromSqflite.updateData(event.todo);
-      retrieve[retrieve.indexWhere((element) => element == update)] = update;
-      emit(TodoSuccessState(listTodo: retrieve));
+      await _dataFromSqflite.updateData(event.todo);
+      add(TodoRetrieveAllEvent());
     });
 
     on<TodoInsertEvent>((event, emit) async {
-      final retrieve = await _dataFromSqflite.retrieveAll();
-      final insert = await _dataFromSqflite.insertData(event.todo);
-      retrieve.add(insert);
-      emit(TodoSuccessState(listTodo: retrieve));
+      await _dataFromSqflite.insertData(event.todo);
+      add(TodoRetrieveAllEvent());
     });
 
     on<TodoRemoveEvent>((event, emit) async {
-      final retrieve = await _dataFromSqflite.retrieveAll();
-      final remove = await _dataFromSqflite.deleteTuple(event.todo.id);
-      retrieve.removeWhere((element) => element.id == remove);
-      emit(TodoSuccessState(listTodo: retrieve));
+      await _dataFromSqflite.deleteTuple(event.todo.id);
+      add(TodoRetrieveAllEvent());
     });
   }
 }

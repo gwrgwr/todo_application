@@ -4,8 +4,9 @@ import 'package:todo_application/model/todo_model.dart';
 
 class DataFromSqflite {
   Future<Database> getDatabase() async {
+    final path = await getDatabasesPath();
     final database = await openDatabase(
-      join(await getDatabasesPath(), 'todo_database.db'),
+      join(path, 'todo_database.db'),
       onCreate: (db, version) {
         return db.execute('''
           CREATE TABLE TODO(
@@ -24,7 +25,6 @@ class DataFromSqflite {
   Future<List<Todo>> retrieveAll() async {
     final database = await getDatabase();
     final data = await database.query('TODO');
-    print(data.map((map) => Todo.fromMap(map)).toList());
     return data.map((map) => Todo.fromMap(map)).toList();
   }
 
