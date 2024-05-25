@@ -41,6 +41,7 @@ dependencies:
   path: ^1.9.0
   sqflite: ^2.3.3+1
   get_it: ^7.7.0
+  uuid: ^4.4.0
 
 dev_dependencies:
   flutter_test:

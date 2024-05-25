@@ -7,8 +7,14 @@ class DataFromSqflite {
     final database = await openDatabase(
       join(await getDatabasesPath(), 'todo_database.db'),
       onCreate: (db, version) {
-        return db.execute(
-            "CREATE TABLE TODO(id INTEGER PRIMAY KEY, todo TEXT NOT NULL, description TEXT NOT NULL, isDone BOOL)");
+        return db.execute('''
+          CREATE TABLE TODO(
+            id TEXT PRIMARY KEY,
+            todo TEXT NOT NULL,
+            description TEXT NOT NULL,
+            isdone INTEGER NOT NULL,
+            datetime INTEGER NOT NULL)
+          ''');
       },
       version: 1,
     );
@@ -18,10 +24,11 @@ class DataFromSqflite {
   Future<List<Todo>> retrieveAll() async {
     final database = await getDatabase();
     final data = await database.query('TODO');
+    print(data.map((map) => Todo.fromMap(map)).toList());
     return data.map((map) => Todo.fromMap(map)).toList();
   }
 
-  Future deleteTuple(int userId) async {
+  Future deleteTuple(String userId) async {
     final database = await getDatabase();
     database.delete('TODO', where: 'id = ?', whereArgs: [userId]);
   }
@@ -34,5 +41,15 @@ class DataFromSqflite {
   Future insertData(Todo todo) async {
     final database = await getDatabase();
     await database.insert('TODO', todo.toMap());
+  }
+
+  Future deleteAllFromTable() async {
+    final database = await getDatabase();
+    await database.rawDelete("DELETE FROM TODO");
+  }
+
+  Future deleteTable() async {
+    final database = await getDatabase();
+    await database.rawDelete("DELETE TABLE TODO");
   }
 }

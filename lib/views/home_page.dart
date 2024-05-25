@@ -23,49 +23,38 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('teste'),
-        centerTitle: true,
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          BlocBuilder<TodoBloc, TodoState>(
-            bloc: todoBloc,
-            builder: (context, state) {
-              if (state is TodoLoadingState) {
-                return const CircularProgressIndicator();
-              }
+    return BlocBuilder<TodoBloc, TodoState>(
+      bloc: todoBloc,
+      builder: (context, state) {
+        if (state is TodoLoadingState) {
+          return const CircularProgressIndicator();
+        }
 
-              if (state is TodoSuccessState) {
-                return Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: state.listTodo.length,
-                    itemBuilder: (context, index) {
-                      final item = state.listTodo[index];
-                      return Text(item.description);
-                    },
-                  ),
-                );
-              }
-
-              if (state is TodoErrorState) {
-                return Text(state.message);
-              }
-
-              return Container();
+        if (state is TodoSuccessState) {
+          if (state.listTodo.isEmpty) {
+            return Center(
+              child: Text(
+                'Não há tarefas para serem feitas',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            );
+          }
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: state.listTodo.length,
+            itemBuilder: (context, index) {
+              final item = state.listTodo[index];
+              return Text(item.description);
             },
-          )
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          todoBloc.add(TodoRetrieveAllEvent());
-        },
-      ),
+          );
+        }
+
+        if (state is TodoErrorState) {
+          return Text(state.message);
+        }
+
+        return Container();
+      },
     );
   }
 }

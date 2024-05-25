@@ -1,29 +1,34 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+
 class Todo {
-  final int id;
+  final String id;
   final String todo;
   final String description;
-  final bool isDone;
+  final int isdone;
+  final int datetime;
   Todo({
     required this.id,
     required this.todo,
     required this.description,
-    required this.isDone,
+    required this.isdone,
+    required this.datetime,
   });
 
   Todo copyWith({
-    int? id,
+    String? id,
     String? todo,
     String? description,
-    bool? isDone,
+    int? isdone,
+    int? datetime,
   }) {
     return Todo(
       id: id ?? this.id,
       todo: todo ?? this.todo,
       description: description ?? this.description,
-      isDone: isDone ?? this.isDone,
+      isdone: isdone ?? this.isdone,
+      datetime: datetime ?? this.datetime,
     );
   }
 
@@ -32,16 +37,18 @@ class Todo {
       'id': id,
       'todo': todo,
       'description': description,
-      'isDone': isDone,
+      'isdone': isdone,
+      'datetime': datetime,
     };
   }
 
   factory Todo.fromMap(Map<String, dynamic> map) {
     return Todo(
-      id: map['id'] as int,
+      id: map['id'] as String,
       todo: map['todo'] as String,
       description: map['description'] as String,
-      isDone: map['isDone'] as int == 0 ? false : true,
+      isdone: map['isdone'] as int,
+      datetime: map['datetime'] as int,
     );
   }
 
@@ -51,7 +58,7 @@ class Todo {
 
   @override
   String toString() {
-    return 'Todo(id: $id, todo: $todo, description: $description, isDone: $isDone)';
+    return 'Todo(id: $id, todo: $todo, description: $description, isdone: $isdone, datetime: $datetime)';
   }
 
   @override
@@ -62,7 +69,8 @@ class Todo {
       other.id == id &&
       other.todo == todo &&
       other.description == description &&
-      other.isDone == isDone;
+      other.isdone == isdone &&
+      other.datetime == datetime;
   }
 
   @override
@@ -70,6 +78,7 @@ class Todo {
     return id.hashCode ^
       todo.hashCode ^
       description.hashCode ^
-      isDone.hashCode;
+      isdone.hashCode ^
+      datetime.hashCode;
   }
 }
