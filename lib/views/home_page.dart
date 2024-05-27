@@ -42,30 +42,24 @@ class _HomePageState extends State<HomePage> {
               ),
             );
           }
-          return Padding(
-            padding: const EdgeInsets.only(
-              top: 20,
-              left: 40,
-            ),
-            child: Column(
-              children: [
-                ListView.separated(
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 10),
-                  shrinkWrap: true,
-                  itemCount: state.listTodo.length,
-                  itemBuilder: (context, index) {
-                    final item = state.listTodo[index];
-                    final boolean = item.isdone == 0 ? false : true;
-                    return MySlidable(
-                      todoBloc: todoBloc,
-                      item: item,
-                      boolean: boolean,
-                    );
-                  },
-                ),
-              ],
-            ),
+          return Column(
+            children: [
+              ListView.separated(
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 10),
+                shrinkWrap: true,
+                itemCount: state.listTodo.length,
+                itemBuilder: (context, index) {
+                  final item = state.listTodo[index];
+                  final boolean = item.isdone == 0 ? false : true;
+                  return MySlidable(
+                    todoBloc: todoBloc,
+                    item: item,
+                    boolean: boolean,
+                  );
+                },
+              ),
+            ],
           );
         }
 

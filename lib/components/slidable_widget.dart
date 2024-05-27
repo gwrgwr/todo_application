@@ -5,11 +5,12 @@ import 'package:todo_application/components/modal_edit_widget.dart';
 import 'package:todo_application/model/todo_model.dart';
 
 class MySlidable extends StatelessWidget {
-  const MySlidable(
-      {required this.item,
-      required this.todoBloc,
-      required this.boolean,
-      super.key});
+  const MySlidable({
+    required this.item,
+    required this.todoBloc,
+    required this.boolean,
+    super.key,
+  });
   final Todo item;
   final TodoBloc todoBloc;
   final bool boolean;
@@ -37,51 +38,65 @@ class MySlidable extends StatelessWidget {
           const SizedBox(width: 20),
         ],
       ),
-      child: AnimatedContainer(
-        duration: Duration(seconds: 3),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
-        ),
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(15),
-            topLeft: Radius.circular(15),
+      child: Align(
+        alignment: Alignment.centerRight,
+        child: AnimatedContainer(
+          duration: Duration(seconds: 3),
+          width: 300,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 10,
           ),
-          color: Colors.red,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Checkbox(
-                value: boolean,
-                onChanged: (value) {
-                  value = boolean;
-                }),
-            SizedBox(
-              width: 200,
-              child: Text(
-                textAlign: TextAlign.center,
-                item.todo,
-                style: const TextStyle(
-                  color: Colors.white,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(15),
+              topLeft: Radius.circular(15),
+            ),
+            color: Colors.red,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Checkbox(
+                  value: boolean,
+                  onChanged: (value) {
+                    todoBloc.add(
+                      TodoUpdateEvent(
+                        todo: Todo(
+                          id: item.id,
+                          todo: item.todo,
+                          description: item.description,
+                          isdone: value == false ? 0 : 1,
+                          datetime: item.datetime,
+                        ),
+                      ),
+                    );
+                  }),
+              SizedBox(
+                width: 100,
+                child: Text(
+                  textAlign: TextAlign.center,
+                  item.todo,
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ),
-            ),
-            IconButton(
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (context) {
-                    return ModalEdit(
-                      item: item,
-                    );
-                  },
-                );
-              },
-              icon: const Icon(Icons.edit),
-            )
-          ],
+              IconButton(
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return ModalEdit(
+                        item: item,
+                      );
+                    },
+                  );
+                },
+                icon: const Icon(Icons.edit),
+              )
+            ],
+          ),
         ),
       ),
     );
