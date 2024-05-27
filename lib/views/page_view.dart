@@ -12,7 +12,6 @@ class MyPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
         title: const Text('teste'),
         centerTitle: true,
         actions: const [
@@ -21,7 +20,6 @@ class MyPageView extends StatelessWidget {
           )
         ],
       ),
-      backgroundColor: const Color(0xff404056),
       body: PageView(
         controller: pageController,
         children: [

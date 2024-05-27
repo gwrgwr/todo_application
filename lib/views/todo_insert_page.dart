@@ -24,11 +24,9 @@ class InsertPage extends StatelessWidget {
           TextField(
             controller: todoTextController,
             decoration: InputDecoration(
-              fillColor: const Color(0xff355486),
               filled: true,
               hintText: "Nome da tarefa",
               hintStyle: const TextStyle(
-                color: Colors.white,
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30),
@@ -50,11 +48,9 @@ class InsertPage extends StatelessWidget {
             maxLines: null,
             controller: descriptionController,
             decoration: InputDecoration(
-              fillColor: const Color(0xff6A3586),
               filled: true,
               hintText: "Descrição da tarefa",
               hintStyle: const TextStyle(
-                color: Colors.white,
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25),

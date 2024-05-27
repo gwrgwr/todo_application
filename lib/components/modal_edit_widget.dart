@@ -13,7 +13,6 @@ class ModalEdit extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: Colors.grey,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(15),
           topRight: Radius.circular(15),
@@ -33,18 +32,15 @@ class ModalEdit extends StatelessWidget {
                 label: const Text(
                   'Tarefa',
                   style: TextStyle(
-                    color: Colors.black,
                   ),
                 ),
                 hintText: item.todo,
                 enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.black,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
-                    color: Colors.white,
                   ),
                   borderRadius: BorderRadius.circular(15),
                 ),
@@ -58,7 +54,6 @@ class ModalEdit extends StatelessWidget {
                 label: const Text(
                   'Descrição',
                   style: TextStyle(
-                    color: Colors.black,
                   ),
                 ),
                 hintText: item.description,
@@ -81,6 +76,5 @@ class ModalEdit extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

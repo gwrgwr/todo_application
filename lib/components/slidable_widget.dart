@@ -31,8 +31,6 @@ class MySlidable extends StatelessWidget {
             onPressed: (context) {
               todoBloc.add(TodoRemoveEvent(todo: item));
             },
-            backgroundColor: const Color(0xFF7BC043),
-            foregroundColor: Colors.white,
             icon: Icons.delete,
           ),
           const SizedBox(width: 20),
@@ -52,7 +50,6 @@ class MySlidable extends StatelessWidget {
               bottomLeft: Radius.circular(15),
               topLeft: Radius.circular(15),
             ),
-            color: Colors.red,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -78,7 +75,6 @@ class MySlidable extends StatelessWidget {
                   textAlign: TextAlign.center,
                   item.todo,
                   style: const TextStyle(
-                    color: Colors.white,
                   ),
                 ),
               ),
