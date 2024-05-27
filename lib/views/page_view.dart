@@ -5,30 +5,46 @@ import 'package:todo_application/views/home_page.dart';
 import 'package:todo_application/views/todo_insert_page.dart';
 
 class MyPageView extends StatelessWidget {
-  const MyPageView({super.key});
+  MyPageView({super.key});
 
+  final pageController = PageController();
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Color(0xff030034),
-            Color(0xff090979),
-            Color(0xff127387),
-        ])
-      ),
-      child: Scaffold(
+    return Scaffold(
+      appBar: AppBar(
         backgroundColor: Colors.transparent,
-        body: PageView(
-          children: [
-            HomePage(),
-            InsertPage(GetIt.instance.get<TodoBloc>()),
-          ],
-        ),
+        title: const Text('teste'),
+        centerTitle: true,
+        actions: const [
+          Icon(
+            Icons.menu,
+          )
+        ],
+      ),
+      backgroundColor: const Color(0xff404056),
+      body: PageView(
+        controller: pageController,
+        children: [
+          const HomePage(),
+          InsertPage(
+            GetIt.instance.get<TodoBloc>(),
+            pageController: pageController,
+          ),
+        ],
       ),
     );
   }
 }
+
+// Container(
+//       decoration: const BoxDecoration(
+//         gradient: LinearGradient(
+//           begin: Alignment.topLeft,
+//           end: Alignment.bottomRight,
+//           colors: [
+//             Color(0xff030034),
+//             Color(0xff090979),
+//             Color(0xff127387),
+//         ])
+//       ),
+//       child: 

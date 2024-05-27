@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:todo_application/bloc/todo_bloc.dart';
+import 'package:todo_application/components/my_snackbar.dart';
 import 'package:todo_application/model/todo_model.dart';
 import 'package:uuid/uuid.dart';
 
 class InsertPage extends StatelessWidget {
-  InsertPage(this.todoBloc, {super.key});
-
+  InsertPage(this.todoBloc, {required this.pageController, super.key});
+  final PageController pageController;
   final TodoBloc todoBloc;
 
   TextEditingController todoTextController = TextEditingController();
@@ -64,22 +65,32 @@ class InsertPage extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           TextButton(
-              onPressed: () {
-                todoBloc.add(
-                  TodoInsertEvent(
-                    todo: Todo(
+            onPressed: () {
+              todoBloc.add(
+                TodoInsertEvent(
+                  todo: Todo(
                       id: const Uuid().v1(),
                       todo: todoTextController.text,
                       description: descriptionController.text,
                       isdone: 0,
-                      datetime: DateTime.now().microsecondsSinceEpoch
-                    ),
-                  ),
-                );
-              },
-              child: Container(
-                child: const Text('Criar tarefa'),
-              ))
+                      datetime: DateTime.now().microsecondsSinceEpoch),
+                ),
+              );
+              todoTextController.clear();
+              descriptionController.clear();
+              ScaffoldMessenger.of(context).showSnackBar(
+                MySnackbar.mySnackbar(),
+              );
+              pageController.animateToPage(
+                0,
+                duration: Duration(seconds: 1),
+                curve: Curves.ease,
+              );
+            },
+            child: Container(
+              child: const Text('Criar tarefa'),
+            ),
+          ),
         ],
       ),
     );

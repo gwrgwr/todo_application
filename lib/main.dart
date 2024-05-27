@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: DarkTheme.darkTheme(),
       home: BlocProvider(
         create: (context) => TodoBloc(GetIt.instance.get<DataFromSqflite>()),
-        child: const MyPageView(),
+        child: MyPageView(),
       ),
     );
   }
