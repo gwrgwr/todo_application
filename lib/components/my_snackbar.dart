@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class MySnackbar {
-  static SnackBar mySnackbar() {
+  static SnackBar mySnackbar(final String text) {
     return SnackBar(
-      content: const Text(
-        'Tarefa adicionada com sucesso !',
+      content: Text(
+        text,
         style: TextStyle(
         ),
       ),

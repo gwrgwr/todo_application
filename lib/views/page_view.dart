@@ -11,12 +11,17 @@ class MyPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text('teste'),
         centerTitle: true,
-        actions: const [
-          Icon(
-            Icons.menu,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.menu,
+              color: Theme.of(context).buttonTheme.colorScheme?.primary,
+            ),
           )
         ],
       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:todo_application/bloc/todo_bloc.dart';
-import 'package:todo_application/components/modal_edit_widget.dart';
+import 'package:todo_application/components/bottom_sheets_edit.dart';
 import 'package:todo_application/model/todo_model.dart';
 
 class MySlidable extends StatelessWidget {
@@ -81,10 +81,12 @@ class MySlidable extends StatelessWidget {
               IconButton(
                 onPressed: () {
                   showModalBottomSheet(
+                    isScrollControlled: true,
                     context: context,
                     builder: (context) {
                       return ModalEdit(
                         item: item,
+                        todoBloc: todoBloc,
                       );
                     },
                   );

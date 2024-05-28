@@ -26,18 +26,17 @@ class InsertPage extends StatelessWidget {
             decoration: InputDecoration(
               filled: true,
               hintText: "Nome da tarefa",
-              hintStyle: const TextStyle(
-              ),
+              hintStyle: const TextStyle(),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(15),
               ),
               disabledBorder: OutlineInputBorder(
                 borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(15),
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(20),
               ),
             ),
           ),
@@ -50,46 +49,52 @@ class InsertPage extends StatelessWidget {
             decoration: InputDecoration(
               filled: true,
               hintText: "Descrição da tarefa",
-              hintStyle: const TextStyle(
-              ),
+              hintStyle: const TextStyle(),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
+                borderRadius: BorderRadius.circular(15),
               ),
               disabledBorder: OutlineInputBorder(
                 borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(25),
+                borderRadius: BorderRadius.circular(15),
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(20),
               ),
             ),
           ),
           const SizedBox(height: 10),
           TextButton(
             onPressed: () {
-              todoBloc.add(
-                TodoInsertEvent(
-                  todo: Todo(
-                    id: const Uuid().v1(),
-                    todo: todoTextController.text,
-                    description: descriptionController.text,
-                    isdone: 0,
-                    datetime: DateTime.now().microsecondsSinceEpoch,
+              if (todoTextController.text.isNotEmpty) {
+                todoBloc.add(
+                  TodoInsertEvent(
+                    todo: Todo(
+                      id: const Uuid().v1(),
+                      todo: todoTextController.text,
+                      description: descriptionController.text,
+                      isdone: 0,
+                      datetime: DateTime.now().microsecondsSinceEpoch,
+                    ),
                   ),
-                ),
-              );
-              todoTextController.clear();
-              descriptionController.clear();
-              ScaffoldMessenger.of(context).showSnackBar(
-                MySnackbar.mySnackbar(),
-              );
-              FocusManager.instance.primaryFocus?.unfocus();
-              pageController.animateToPage(
-                0,
-                duration: Duration(seconds: 1),
-                curve: Curves.ease,
-              );
+                );
+                todoTextController.clear();
+                descriptionController.clear();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  MySnackbar.mySnackbar('Tarefa adicionada com sucesso !'),
+                );
+                FocusManager.instance.primaryFocus?.unfocus();
+                pageController.animateToPage(
+                  0,
+                  duration: Duration(seconds: 1),
+                  curve: Curves.ease,
+                );
+                // pageController.jumpToPage(0);
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  MySnackbar.mySnackbar('Erro ao adicionar tarefa !'),
+                );
+              }
             },
             child: Container(
               child: const Text('Criar tarefa'),

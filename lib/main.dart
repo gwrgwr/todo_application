@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: MaterialTheme(TextTheme()).darkMediumContrast(),
+      theme: const MaterialTheme(TextTheme()).light(),
       home: BlocProvider(
         create: (context) => TodoBloc(GetIt.instance.get<DataFromSqflite>()),
         child: MyPageView(),

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get_it/get_it.dart';
 import 'package:todo_application/bloc/todo_bloc.dart';
-import 'package:todo_application/components/modal_edit_widget.dart';
+import 'package:todo_application/components/bottom_sheets_edit.dart';
 import 'package:todo_application/components/slidable_widget.dart';
 import 'package:todo_application/data/data_from_sqflite.dart';
 

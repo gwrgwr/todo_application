@@ -13,6 +13,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   TodoBloc(this._dataFromSqflite) : super(TodoInitialState()) {
     on<TodoRetrieveAllEvent>((TodoRetrieveAllEvent event, Emitter emit) async {
       final retrieve = await _dataFromSqflite.retrieveAll();
+      print(retrieve);
       emit(TodoSuccessState(listTodo: retrieve));
     });
 
