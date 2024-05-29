@@ -43,6 +43,7 @@ class _HomePageState extends State<HomePage> {
             );
           }
           return Column(
+            // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ListView.separated(
                 separatorBuilder: (context, index) =>

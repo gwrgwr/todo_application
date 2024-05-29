@@ -16,84 +16,137 @@ class MySlidable extends StatelessWidget {
   final bool boolean;
   @override
   Widget build(BuildContext context) {
-    return Slidable(
-      endActionPane: ActionPane(
-        extentRatio: 0.25,
-        motion: const ScrollMotion(),
-        children: [
-          const SizedBox(width: 10),
-          SlidableAction(
-            autoClose: true,
-            borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(15),
-              bottomRight: Radius.circular(15),
+    Color getColor(Set<MaterialState> states) {
+      const Set<MaterialState> interactiveStates = <MaterialState>{
+        MaterialState.selected,
+      };
+      if (states.any(interactiveStates.contains)) {
+        return Colors.blue;
+      }
+      return Theme.of(context).colorScheme.background;
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Slidable(
+        endActionPane: ActionPane(
+          extentRatio: 0.25,
+          motion: const ScrollMotion(),
+          children: [
+            SlidableAction(
+              backgroundColor: Theme.of(context).colorScheme.tertiary,
+              autoClose: true,
+              borderRadius: BorderRadius.circular(15),
+              onPressed: (context) {
+                todoBloc.add(TodoRemoveEvent(todo: item));
+              },
+              icon: Icons.delete,
             ),
-            onPressed: (context) {
-              todoBloc.add(TodoRemoveEvent(todo: item));
-            },
-            icon: Icons.delete,
-          ),
-          const SizedBox(width: 20),
-        ],
-      ),
-      child: Align(
-        alignment: Alignment.centerRight,
-        child: AnimatedContainer(
-          duration: Duration(seconds: 3),
-          width: 300,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 10,
-          ),
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(15),
-              topLeft: Radius.circular(15),
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Checkbox(
-                  value: boolean,
-                  onChanged: (value) {
-                    todoBloc.add(
-                      TodoUpdateEvent(
-                        todo: Todo(
-                          id: item.id,
-                          todo: item.todo,
-                          description: item.description,
-                          isdone: value == false ? 0 : 1,
-                          datetime: item.datetime,
-                        ),
+          ],
+        ),
+        child: Center(
+          child: InkWell(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return Center(
+                    child: Container(
+                      width: 400,
+                      height: 400,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary,
                       ),
-                    );
-                  }),
-              SizedBox(
-                width: 100,
-                child: Text(
-                  textAlign: TextAlign.center,
-                  item.todo,
-                  style: const TextStyle(
-                  ),
-                ),
-              ),
-              IconButton(
-                onPressed: () {
-                  showModalBottomSheet(
-                    isScrollControlled: true,
-                    context: context,
-                    builder: (context) {
-                      return ModalEdit(
-                        item: item,
-                        todoBloc: todoBloc,
-                      );
-                    },
+                      child: Column(
+                        children: [
+                          Text(item.id),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text(
+                              'Fechar',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   );
                 },
-                icon: const Icon(Icons.edit),
-              )
-            ],
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 15,
+              ),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Transform.scale(
+                    scale: 1.3,
+                    child: Checkbox(
+                        side: MaterialStateBorderSide.resolveWith(
+                          (states) => BorderSide(
+                            width: 1.0,
+                            color: Theme.of(context).colorScheme.background,
+                          ),
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(2.0),
+                        ),
+                        value: boolean,
+                        onChanged: (value) {
+                          todoBloc.add(
+                            TodoUpdateEvent(
+                              todo: Todo(
+                                id: item.id,
+                                todo: item.todo,
+                                description: item.description,
+                                isdone: value == false ? 0 : 1,
+                                datetime: item.datetime,
+                              ),
+                            ),
+                          );
+                        }),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: Text(
+                      textAlign: TextAlign.center,
+                      item.todo,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.surface,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                        isScrollControlled: true,
+                        context: context,
+                        builder: (context) {
+                          return ModalEdit(
+                            item: item,
+                            todoBloc: todoBloc,
+                          );
+                        },
+                      );
+                    },
+                    icon: Icon(
+                      Icons.edit,
+                      size: 25,
+                      color: Theme.of(context).colorScheme.background,
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
         ),
       ),

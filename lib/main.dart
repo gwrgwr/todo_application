@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_application/bloc/todo_bloc.dart';
 import 'package:todo_application/data/data_from_sqflite.dart';
 import 'package:todo_application/themes/theme.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: const MaterialTheme(TextTheme()).light(),
+      theme: const MaterialTheme(TextTheme()).dark(),
       home: BlocProvider(
         create: (context) => TodoBloc(GetIt.instance.get<DataFromSqflite>()),
         child: MyPageView(),

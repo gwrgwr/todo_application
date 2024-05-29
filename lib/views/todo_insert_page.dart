@@ -28,14 +28,21 @@ class InsertPage extends StatelessWidget {
               hintText: "Nome da tarefa",
               hintStyle: const TextStyle(),
               enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
                 borderRadius: BorderRadius.circular(15),
               ),
               disabledBorder: OutlineInputBorder(
-                borderSide: BorderSide.none,
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
                 borderRadius: BorderRadius.circular(15),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide.none,
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
@@ -51,14 +58,21 @@ class InsertPage extends StatelessWidget {
               hintText: "Descrição da tarefa",
               hintStyle: const TextStyle(),
               enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
                 borderRadius: BorderRadius.circular(15),
               ),
               disabledBorder: OutlineInputBorder(
-                borderSide: BorderSide.none,
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
                 borderRadius: BorderRadius.circular(15),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide.none,
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
                 borderRadius: BorderRadius.circular(20),
               ),
             ),

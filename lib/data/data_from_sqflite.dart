@@ -35,7 +35,7 @@ class DataFromSqflite {
 
   Future updateData(Todo todo) async {
     final database = await getDatabase();
-    database.update('TODO', todo.toMap());
+    database.update('TODO', todo.toMap(), where: "id = ?", whereArgs: [todo.id]);
   }
 
   Future insertData(Todo todo) async {

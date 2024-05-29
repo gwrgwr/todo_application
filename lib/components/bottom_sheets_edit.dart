@@ -32,7 +32,10 @@ class ModalEdit extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              const Text('Editar tarefa'),
+              const Text(
+                'Editar tarefa',
+                style: TextStyle(fontSize: 24),
+              ),
               TextField(
                 controller: todoTextEdit,
                 decoration: InputDecoration(
@@ -41,11 +44,15 @@ class ModalEdit extends StatelessWidget {
                     style: TextStyle(),
                   ),
                   hintText: item.todo,
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
@@ -54,26 +61,35 @@ class ModalEdit extends StatelessWidget {
                 maxLines: null,
                 controller: descriptionTextEdit,
                 decoration: InputDecoration(
-                  label: const Text(
-                    'Descrição',
-                    style: TextStyle(),
-                  ),
-                  hintText: item.description,
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(),
-                    borderRadius: BorderRadius.circular(
-                      15,
+                    label: const Text(
+                      'Descrição',
+                      style: TextStyle(),
                     ),
-                  ),
-                ),
+                    hintText: item.description,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        15,
+                      ),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    )),
               ),
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {
+                    print(item.id);
                     todoBloc.add(
                       TodoUpdateEvent(
                         todo: Todo(
